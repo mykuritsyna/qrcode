@@ -16,4 +16,7 @@ func main() {
 	} else {
 		fmt.Println("Ссылка некорректна")
 	}
+	if input_scanner.Validate(link) {
+		input_scanner.MakeFile(link)
+	}
 }
