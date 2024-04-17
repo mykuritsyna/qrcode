@@ -24,7 +24,15 @@ func Hello() {
 		case "info":
 			showInfo()
 		case "qr":
-			input_scanner.MakeFile()
+			fmt.Println("Введите ссылку")
+			var link string
+			input_scanner.Scan(&link)
+			if input_scanner.Validate(link) {
+				fmt.Println("Ссылка удачно считана")
+				input_scanner.MakeFile(link)
+			} else {
+				fmt.Println("Ссылка некорректна")
+			}
 		default:
 			fmt.Println("Неверная команда. Пожалуйста, выберите команду из меню.")
 		}
