@@ -53,8 +53,8 @@ func GetTexts() map[string]texts {
 	}
 
 	return map[string]texts{
-		"RU": ruTexts,
-		"EN": enTexts,
+		"ru": ruTexts,
+		"en": enTexts,
 	}
 
 }

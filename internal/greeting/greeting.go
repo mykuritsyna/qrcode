@@ -8,7 +8,7 @@ import (
 )
 
 func ChooseLanguage() (lang string) {
-	fmt.Println("ru - 1, en - 2")
+	fmt.Println("Продолжить на русском языке - введите 'ru'. To continue in English tap 'en'")
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		command := strings.TrimSpace(scanner.Text())

@@ -17,7 +17,6 @@ func main() {
 
 	greeter.Hello()
 
-	input_scanner.Scan(&link)
 	if input_scanner.Validate(link) {
 		fmt.Println("Ссылка удачно считана")
 	} else {
