@@ -2,14 +2,20 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"qrcode/internal/greeting"
 	"qrcode/internal/input_scanner"
 )
 
 func main() {
-	//функция выводит предложение выбрать язык - просит на ввод значение
-	// значение записывается в lang
+
+	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/info", infoHandler)
+
+	// Запуск сервера на порту 8080
+	http.ListenAndServe(":80", nil)
+
 	lang := greeting.ChooseLanguage()
 	greeter := greeting.NewGreeter(lang)
 
@@ -25,4 +31,13 @@ func main() {
 	if input_scanner.Validate(link) {
 		input_scanner.MakeFile(link)
 	}
+}
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello"))
+}
+
+func infoHandler(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("This programme generates a QR code when you enter a link"))
 }
