@@ -23,7 +23,8 @@ type texts struct {
 	Link             string
 	OkLink           string
 	FailLink         string
-	Command          string
+	Menu             string
+	InvalidCommand   string
 	AvailableCommand string
 	Finish           string
 	Info             string
@@ -31,22 +32,24 @@ type texts struct {
 
 func GetTexts() map[string]texts {
 	ruTexts := texts{
-		Hello:            "Привет! Я генератор qr кодов. Введи ссылку, для которой ты хочешь сгенерировать qr-код и я отправлю тебе изображение с кодом.\\\" +\\n\\t\\t\\\"\\\\n Тебе доступны команды: stop - завершение программы, info - вывод информации о программе и формате ссылки, qr - начало создания qr-кода",
+		Hello:            "Привет! Я генератор qr кодов. Введи ссылку, для которой ты хочешь сгенерировать qr-код и я отправлю тебе изображение с кодом.\nТебе доступны команды: stop - завершение программы, info - вывод информации о программе и формате ссылки, qr - начало создания qr-кода",
 		Link:             "Введите ссылку",
 		OkLink:           "Ссылка удачно считана",
 		FailLink:         "Ссылка некорректна",
-		Command:          "Неверная команда. Пожалуйста, выберите команду из меню",
+		Menu:             "Пожалуйста, выберите команду из меню",
+		InvalidCommand:   "Неверная команда",
 		AvailableCommand: "Доступные команды: stop - завершение программы, info - вывод информации о программе и формате ссылки, qr - создание QR-кода. Введите команду: ",
 		Finish:           "Программа завершена",
 		Info:             "Программа создает QR-код для введенной пользователем ссылки. Формат ссылки: http://example.com",
 	}
 
 	enTexts := texts{
-		Hello:            "Hi! I am a QR code generator. Enter the link for which you want to generate a QR code, and I will send you an image with the code.\\\" +\\n\\t\\t\\\"\\\\n You have the following commands available: stop - terminate the program, info - display information about the program and link format, qr - start creating a QR code",
+		Hello:            "Hi! I am a QR code generator. Enter the link for which you want to generate a QR code, and I will send you an image with the code.\nYou have the following commands available: stop - terminate the program, info - display information about the program and link format, qr - start creating a QR code",
 		Link:             "Enter the link",
 		OkLink:           "Link successfully read",
 		FailLink:         "The link is incorrect",
-		Command:          "Invalid command. Please choose a command from the menu",
+		Menu:             "Please choose a command from the menu",
+		InvalidCommand:   "Invalid command",
 		AvailableCommand: "Available commands: stop - terminate the program, info - display information about the program and link format, qr - create a QR code. Enter command",
 		Finish:           "The program has ended",
 		Info:             "The program generates a QR code for the link entered by the user. Link format: http://example.com ",
@@ -85,7 +88,7 @@ func (g greeter) Hello() {
 				fmt.Println(text.FailLink)
 			}
 		default:
-			fmt.Println(text.Command)
+			fmt.Println(text.InvalidCommand)
 		}
 
 		g.showMenu()
@@ -98,7 +101,7 @@ func (g greeter) Hello() {
 
 func (g greeter) showMenu() {
 	text := GetTexts()[g.Language]
-	fmt.Println(text.Command)
+	fmt.Println(text.Menu)
 }
 
 func (g greeter) stopProgram() {
