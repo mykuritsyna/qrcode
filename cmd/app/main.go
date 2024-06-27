@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"qrcode/internal/greeting"
+	"qrcode/internal/input_scanner"
 
 	"github.com/skip2/go-qrcode"
 )
@@ -18,7 +18,7 @@ func main() {
 	http.HandleFunc("/qr", qr)
 
 	// Запуск сервера на порту 80
-	http.ListenAndServe(":80", nil)
+	go http.ListenAndServe(":80", nil)
 
 	lang := greeting.ChooseLanguage()
 	greeter := greeting.NewGreeter(lang)
@@ -56,8 +56,8 @@ func qr(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
-	parsedURL, err := url.ParseRequestURI(req.Link)
-	if err != nil || parsedURL.Scheme == "" || parsedURL.Host == "" {
+	isValid := input_scanner.Validate(req.Link)
+	if !isValid {
 		http.Error(w, "Invalid URL", http.StatusBadRequest)
 		return
 	}
